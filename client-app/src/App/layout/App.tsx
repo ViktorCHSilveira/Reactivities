@@ -5,6 +5,7 @@ import List from 'semantic-ui-react/dist/commonjs/elements/List';
 import { Activity } from '../models/activity';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../Features/activities/dashboard/ActivityDashboard';
+import { act } from '@testing-library/react';
 
 function App() {
 
@@ -36,6 +37,13 @@ function App() {
     setEditMode(false)
   }
 
+  function handleCreateOrEditActivity(activity: Activity){
+    activity.id ? setActivities([...activities.filter(x => x.id !== activity.id), activity]) : 
+    setActivities([...activities, activity])
+    setEditMode(false)
+    setSelectActivity(activity)
+  }
+
   return (
     <>
       <NavBar openForm={handleFormOpen}/>
@@ -48,6 +56,7 @@ function App() {
          editMode={editMode}
          openForm={handleFormOpen}
          closeForm={handleFormClose}
+         createOrEdit={handleCreateOrEditActivity}
          />
       </Container>
     </>
