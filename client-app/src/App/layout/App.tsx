@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { Activity } from '../models/activity';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../Features/activities/dashboard/ActivityDashboard';
