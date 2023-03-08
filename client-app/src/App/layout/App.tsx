@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
 import { Container, Header } from 'semantic-ui-react';
-import List from 'semantic-ui-react/dist/commonjs/elements/List';
 import { Activity } from '../models/activity';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../Features/activities/dashboard/ActivityDashboard';
-import { act } from '@testing-library/react';
 import {v4 as uuid} from 'uuid';
+import agent from '../api/agent';
 
 function App() {
 
@@ -15,9 +13,9 @@ function App() {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios.get<Activity[]>('http://localhost:5000/api/activities')
+    agent.Activities.list()
       .then(response => {
-          setActivities(response.data);
+          setActivities(response.sort((a: Activity, b: Activity) => a.date > b.date ? 1 : -1));
     })
   }, [])
 
