@@ -6,9 +6,10 @@ interface Props {
     activities: Activity[]
     selectActivity: (id: string) => void;
     deleteActivity: (id: string) => void;
+    submitting: boolean;
 }
 
-export default function ActivityList({ activities, selectActivity, deleteActivity }: Props) {
+export default function ActivityList({ activities, selectActivity, deleteActivity, submitting }: Props) {
     return (
         <Segment>
             <Item.Group divided>
@@ -21,9 +22,9 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                                 <div>{activity.description}</div>
                                 <div>{activity.city}, {activity.venue}</div>
                             </Item.Description>
-                            <Item.Extra>
+                            <Item.Extra key={activity.id}>
                                 <Button onClick={() => selectActivity(activity.id)} floated='right' content='View' color='blue'/>
-                                <Button onClick={() => deleteActivity(activity.id)} floated='right' content='Delete' color='red'/>
+                                <Button loading={submitting} onClick={() => deleteActivity(activity.id)} floated='right' content='Delete' color='red'/>
                                 <Label basic content={activity.category}/>
                             </Item.Extra>
                         </Item.Content>
